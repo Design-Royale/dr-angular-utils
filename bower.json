@@ -1,6 +1,6 @@
 {
   "name": "dr-angular-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/dr-angular-utils.min.js",
   "dependencies": {
   },
