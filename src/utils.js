@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('drUtils', []).
-  service('drUtils', function drUtils() {
+  constant('drUtils', {
     /**********
     * Angular
     ***********/
-    this.safeApply = function(scope, exp) {
+    safeApply: function(scope, exp) {
       var phase = scope.$$phase;
       if(phase === '$apply' || phase === '$digest') {
         if(exp && (typeof(exp) === 'function')) {
@@ -14,16 +14,16 @@ angular.module('drUtils', []).
       } else {
         scope.$apply(exp);
       }
-    };
+    },
 
     /**********
     * Javascript
     ***********/
-    this.goBack = function () {
+    goBack: function () {
       window.history.back();
-    };
+    },
 
-    this.sizeOfObject = function(obj) {
+    sizeOfObject: function(obj) {
       var size = 0;
       for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -31,9 +31,9 @@ angular.module('drUtils', []).
         }
       }
       return size;
-    };
+    },
 
-    this.setupRequestAnimationFrame = function() {
+    setupRequestAnimationFrame: function() {
       window.requestAnimationFrame =
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -43,9 +43,9 @@ angular.module('drUtils', []).
         function (callback) {
           setTimeout(callback, 16);
         };
-    };
+    },
 
-    this.ie = function() {
+    ie: function() {
       var undef,
         v = 3,
         div = document.createElement('div'),
@@ -56,12 +56,12 @@ angular.module('drUtils', []).
         all[0]
       ) {}
       return v > 4 ? v : undef;
-    };
+    },
 
     /**********
     * SVG
     ***********/
-    this.extendSVGElement = function() {
+    extendSVGElement: function() {
       // IE8 has no idea what the heck a SVGElement is.
       if (typeof SVGElement === 'undefined') {
         return;
@@ -89,25 +89,25 @@ angular.module('drUtils', []).
           this.addClass(className);
         }
       };
-    };
+    },
 
     /**********
     * Math
     ***********/
-    this.TO_RADIANS = 0.017453292519943295;
-    this.TO_DEGREES = 57.29577951308232;
+    TO_RADIANS: 0.017453292519943295,
+    TO_DEGREES: 57.29577951308232,
 
-    this.rangedNum = function(n, min, max) {
+    rangedNum: function(n, min, max) {
       return Math.min(Math.max(n, min), max);
-    };
+    },
 
-    this.log = function(base, x) {
+    log: function(base, x) {
       return Math.log(x) / Math.log(base);
-    };
+    },
     
-    this.positiveModulo = function(x, n) {
+    positiveModulo: function(x, n) {
       return ((x%n)+n)%n;
-    };
+    }
   });
 
 

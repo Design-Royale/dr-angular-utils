@@ -1,16 +1,13 @@
 /**
  * dr-angular-utils
- * @version v0.0.1 - 2014-02-27
+ * @version v0.0.2 - 2014-03-03
  * @link https://github.com/Design-Royale/dr-angular-utils
  * @author Design Royale <>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 'use strict';
-angular.module('drUtils', []).service('drUtils', function drUtils() {
-  /**********
-    * Angular
-    ***********/
-  this.safeApply = function (scope, exp) {
+angular.module('drUtils', []).constant('drUtils', {
+  safeApply: function (scope, exp) {
     var phase = scope.$$phase;
     if (phase === '$apply' || phase === '$digest') {
       if (exp && typeof exp === 'function') {
@@ -19,14 +16,11 @@ angular.module('drUtils', []).service('drUtils', function drUtils() {
     } else {
       scope.$apply(exp);
     }
-  };
-  /**********
-    * Javascript
-    ***********/
-  this.goBack = function () {
+  },
+  goBack: function () {
     window.history.back();
-  };
-  this.sizeOfObject = function (obj) {
+  },
+  sizeOfObject: function (obj) {
     var size = 0;
     for (var key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -34,16 +28,19 @@ angular.module('drUtils', []).service('drUtils', function drUtils() {
       }
     }
     return size;
-  };
-  this.setupRequestAnimationFrame = function () {
+  },
+  setupRequestAnimationFrame: function () {
     window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
       setTimeout(callback, 16);
     };
-  };
-  /**********
-    * SVG
-    ***********/
-  this.extendSVGElement = function () {
+  },
+  ie: function () {
+    var undef, v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
+    while (div.innerHTML = '<!--[if gt IE ' + ++v + ']><i></i><![endif]-->', all[0]) {
+    }
+    return v > 4 ? v : undef;
+  },
+  extendSVGElement: function () {
     // IE8 has no idea what the heck a SVGElement is.
     if (typeof SVGElement === 'undefined') {
       return;
@@ -70,19 +67,16 @@ angular.module('drUtils', []).service('drUtils', function drUtils() {
         this.addClass(className);
       }
     };
-  };
-  /**********
-    * Math
-    ***********/
-  this.TO_RADIANS = 0.017453292519943295;
-  this.TO_DEGREES = 57.29577951308232;
-  this.rangedNum = function (n, min, max) {
+  },
+  TO_RADIANS: 0.017453292519943295,
+  TO_DEGREES: 57.29577951308232,
+  rangedNum: function (n, min, max) {
     return Math.min(Math.max(n, min), max);
-  };
-  this.log = function (base, x) {
+  },
+  log: function (base, x) {
     return Math.log(x) / Math.log(base);
-  };
-  this.positiveModulo = function (x, n) {
+  },
+  positiveModulo: function (x, n) {
     return (x % n + n) % n;
-  };
+  }
 });
