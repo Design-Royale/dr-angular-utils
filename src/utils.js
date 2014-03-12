@@ -5,6 +5,29 @@ angular.module('drUtils', []).
     /**********
     * Angular
     ***********/
+    preloadImage: function(url, q) {
+      var deferred = q.defer();
+      var img = new Image();
+      img.onload = function() {
+        deferred.resolve(img);
+      };
+      img.onerror = function() {
+        deferred.reject(new Error('Couldn\'t load ' + url));
+      };
+      img.src = url;
+      return deferred.promise;
+    },
+
+    preloadImages: function(urls, q) {
+      var promises = [];
+      for (var i = 0; i < urls.length; i++) {
+        var url = urls[i];
+        var promise = this.preloadImage(url, q);
+        promises.push(promise);
+      }
+      return q.all(promises);
+    },
+
     safeApply: function(scope, exp) {
       var phase = scope.$$phase;
       if(phase === '$apply' || phase === '$digest') {
