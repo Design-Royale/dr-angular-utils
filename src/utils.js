@@ -29,7 +29,7 @@ angular.module('drUtils', []).
     },
 
     safeApply: function(scope, exp) {
-      var phase = scope.$$phase;
+      var phase = scope.$root.$$phase;
       if(phase === '$apply' || phase === '$digest') {
         if(exp && (typeof(exp) === 'function')) {
           exp();
