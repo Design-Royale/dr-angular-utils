@@ -1,6 +1,6 @@
 /**
  * dr-angular-utils
- * @version v0.0.3 - 2014-03-12
+ * @version v0.0.5 - 2014-03-17
  * @link https://github.com/Design-Royale/dr-angular-utils
  * @author Design Royale <>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -29,7 +29,7 @@ angular.module('drUtils', []).constant('drUtils', {
     return q.all(promises);
   },
   safeApply: function (scope, exp) {
-    var phase = scope.$$phase;
+    var phase = scope.$root.$$phase;
     if (phase === '$apply' || phase === '$digest') {
       if (exp && typeof exp === 'function') {
         exp();
