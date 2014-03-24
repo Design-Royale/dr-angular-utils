@@ -81,6 +81,27 @@ angular.module('drUtils', []).
       return v > 4 ? v : undef;
     },
 
+    rangedArray: function(from, to) {
+      var a = [];
+      for (var i = from; i < to; i++) {
+        a.push(i);
+      }
+      return a;
+    },
+
+    randomArray: function(from, to) {
+      var a = this.rangedArray(from, to);
+      var i = a.length, j, temp;
+      if (i === 0) return a;
+      while (--i) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+      }
+      return a;
+    },
+
     /**********
     * SVG
     ***********/

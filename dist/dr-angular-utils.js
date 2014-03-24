@@ -1,6 +1,6 @@
 /**
  * dr-angular-utils
- * @version v0.0.5 - 2014-03-17
+ * @version v0.0.6 - 2014-03-24
  * @link https://github.com/Design-Royale/dr-angular-utils
  * @author Design Royale <>
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -60,6 +60,26 @@ angular.module('drUtils', []).constant('drUtils', {
     while (div.innerHTML = '<!--[if gt IE ' + ++v + ']><i></i><![endif]-->', all[0]) {
     }
     return v > 4 ? v : undef;
+  },
+  rangedArray: function (from, to) {
+    var a = [];
+    for (var i = from; i < to; i++) {
+      a.push(i);
+    }
+    return a;
+  },
+  randomArray: function (from, to) {
+    var a = this.rangedArray(from, to);
+    var i = a.length, j, temp;
+    if (i === 0)
+      return a;
+    while (--i) {
+      j = Math.floor(Math.random() * (i + 1));
+      temp = a[i];
+      a[i] = a[j];
+      a[j] = temp;
+    }
+    return a;
   },
   extendSVGElement: function () {
     // IE8 has no idea what the heck a SVGElement is.
